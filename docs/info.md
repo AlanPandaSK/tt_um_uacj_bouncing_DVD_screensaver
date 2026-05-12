@@ -25,11 +25,11 @@ _**Figure 1.** Block diagram of the DVD screensaver system._
 
 - **Bouncing Logic & Position Registers** – Maintains the current top‑left corner position of the logo (`logo_left`, `logo_top`) and the direction of movement (`dir_x`, `dir_y`). On each frame (detected during vertical blanking), the position updates by one pixel. When the logo reaches a screen edge it bounces, increments the color index, and triggers a white flash. An optional `cfg_slow` mode halves the movement speed by updating only on every other frame.
 
-- **bitmap_rom** – A 640‑byte ROM (40 rows × 16 bytes/row) that stores the 128×40 UACJ IIT logo. Each bit represents one pixel: `1` for logo foreground, `0` for background. The ROM is addressed by the current pixel position relative to the logo's top‑left corner.
+- **bitmap_rom** – A 640‑byte ROM (40 rows x 16 bytes/row) that stores the 128x40 UACJ IIT logo. Each bit represents one pixel: `1` for logo foreground, `0` for background. The ROM is addressed by the current pixel position relative to the logo's top‑left corner.
 
 - **palette** – Three instances of an 8‑entry color palette (6‑bit RGB, 2 bits per channel). The logo color cycles through the palette on each bounce. The background color is offset by +4 indices, and a checkerboard accent color is offset by +5 indices. A `cfg_color` input selects between color (palette) and monochrome (white on black).
 
-- **Checkerboard Background** – When `cfg_checker` is enabled, the background tiles alternate between two colors using a 16×16 XOR pattern (`pix_x[4] ^ pix_y[4]`), adding visual depth behind the bouncing logo.
+- **Checkerboard Background** – When `cfg_checker` is enabled, the background tiles alternate between two colors using a 16x16 XOR pattern (`pix_x[4] ^ pix_y[4]`), adding visual depth behind the bouncing logo.
 
 - **CRT Scanline Effect** – When `cfg_scanline` is enabled, every odd-numbered row has its RGB channels halved, simulating the dark lines of a CRT display.
 
